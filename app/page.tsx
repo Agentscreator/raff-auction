@@ -26,7 +26,7 @@ export default function LandingPage() {
             <span className="text-white text-xl sm:text-2xl font-bold">RaffAuction</span>
           </div>
           <Link href="/auth">
-            <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-2xl backdrop-blur-sm px-6 py-3 text-lg font-semibold">
+            <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-2xl backdrop-blur-sm px-4 py-2 text-base sm:px-6 sm:py-3 sm:text-lg font-semibold">
               Get Started
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
