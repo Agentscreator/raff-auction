@@ -47,16 +47,6 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
-
-  @keyframes bounce-y {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
-  }
 }
 
 @layer base {
@@ -101,10 +91,6 @@
 
   .raffauction-gradient-button {
     @apply bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600;
-  }
-
-  .animate-bounce-y {
-    animation: bounce-y 1.5s infinite ease-in-out;
   }
 }
 
