@@ -94,21 +94,6 @@
   }
 }
 
-/* Mobile optimizations */
-@media (max-width: 640px) {
-  .mobile-text-sm {
-    @apply text-sm;
-  }
-
-  .mobile-px-4 {
-    @apply px-4;
-  }
-
-  .mobile-py-3 {
-    @apply py-3;
-  }
-}
-
 /* Ensure consistent spacing and typography */
 .raffauction-spacing {
   @apply space-y-6;
