@@ -11,7 +11,7 @@ export default function LandingPage() {
         {/* Desktop Background */}
         <div className="hidden md:block">
           <Image
-            src="https://img.goodfon.com/wallpaper/nbig/e/b3/devushki-krasivaia-devushka-zhelty-avto-bmw-vzgliad-poziru-1.webp"
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/car-saleswoman-car-showroom.jpg-bC4bKxPpiO4Y0kSMvWshe9d5CXKG8x.jpeg"
             alt="Professional car saleswoman in showroom"
             fill
             className="object-cover opacity-30"
