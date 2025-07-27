@@ -54,15 +54,15 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mb-16">
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              Save Your Car &
+              Win Cars with
               <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                 {" "}
-                Your Credit
+                RaffAuction
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-white/80 mb-8 leading-relaxed">
-              Facing repossession or stuck in a car loan? RaffAuction gives you a chance to pay off your vehicle 
-              without using your own money. Protect your credit and keep your transportation.
+              The revolutionary platform that merges the excitement of raffles with the competitive nature of auctions.
+              Your chance to win quality vehicles through strategy or luck.
             </p>
 
             <Link href="/auth">
@@ -70,7 +70,7 @@ export default function LandingPage() {
                 size="lg"
                 className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl px-12 py-6 text-xl font-bold shadow-2xl"
               >
-                Get Financial Relief
+                Find Your Car
                 <ArrowRight className="ml-3 h-6 w-6" />
               </Button>
             </Link>
@@ -79,24 +79,24 @@ export default function LandingPage() {
           {/* Features Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 text-center">
-              <Shield className="h-12 w-12 text-green-400 mx-auto mb-4" />
-              <h3 className="text-white font-bold text-xl mb-3">Protect Your Credit</h3>
+              <Trophy className="h-12 w-12 text-yellow-400 mx-auto mb-4" />
+              <h3 className="text-white font-bold text-xl mb-3">Quality Vehicles</h3>
               <p className="text-white/70">
-                Avoid repossession and the devastating impact on your credit score. Keep your financial future intact.
+                Win reliable cars from everyday brands - Honda, Toyota, Ford, Nissan, and other dependable vehicles.
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 text-center">
-              <Heart className="h-12 w-12 text-red-400 mx-auto mb-4" />
-              <h3 className="text-white font-bold text-xl mb-3">Keep Your Car</h3>
+              <Shield className="h-12 w-12 text-green-400 mx-auto mb-4" />
+              <h3 className="text-white font-bold text-xl mb-3">Fair & Transparent</h3>
               <p className="text-white/70">
-                Get a chance to pay off your loan or lease without using your own money. Keep your transportation.
+                Every auction and raffle is completely transparent with verified results. Fair chance for everyone to win.
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 text-center">
               <Zap className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-              <h3 className="text-white font-bold text-xl mb-3">Fast Relief</h3>
+              <h3 className="text-white font-bold text-xl mb-3">Affordable Entry</h3>
               <p className="text-white/70">
-                Quick entry process with immediate results. Get the financial help you need when you need it most.
+                Low-cost entries make it accessible for everyone. Win a car without breaking the bank to participate.
               </p>
             </div>
           </div>
@@ -105,16 +105,16 @@ export default function LandingPage() {
           <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 mb-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">5K+</div>
-                <div className="text-white/70">Cars Saved</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">3K+</div>
+                <div className="text-white/70">Cars Won</div>
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">$25M+</div>
-                <div className="text-white/70">Debt Relieved</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">$15M+</div>
+                <div className="text-white/70">Car Value Won</div>
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">98%</div>
-                <div className="text-white/70">Credit Protected</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">500+</div>
+                <div className="text-white/70">Active Listings</div>
               </div>
               <div>
                 <div className="text-3xl sm:text-4xl font-bold text-white mb-2">24/7</div>
@@ -126,34 +126,34 @@ export default function LandingPage() {
           {/* How It Works Section */}
           <div className="mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-12">
-              How RaffAuction Saves Your Car
+              How RaffAuction Works
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
                   <span className="text-white font-bold text-xl">1</span>
                 </div>
-                <h3 className="text-white font-bold text-xl mb-3">Submit Your Situation</h3>
+                <h3 className="text-white font-bold text-xl mb-3">Browse Available Cars</h3>
                 <p className="text-white/70">
-                  Tell us about your car loan, lease, or repossession situation. We'll calculate what you need to save your vehicle.
+                  Explore quality vehicles from people looking to sell. Find sedans, SUVs, trucks, and more everyday cars.
                 </p>
               </div>
               <div className="text-center">
                 <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
                   <span className="text-white font-bold text-xl">2</span>
                 </div>
-                <h3 className="text-white font-bold text-xl mb-3">Enter to Win</h3>
+                <h3 className="text-white font-bold text-xl mb-3">Bid or Enter Raffle</h3>
                 <p className="text-white/70">
-                  Join our auction or raffle system designed to help people in your exact situation pay off their car debt.
+                  Use strategy in auctions or try your luck in raffles. Affordable entries give everyone a fair chance.
                 </p>
               </div>
               <div className="text-center">
                 <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
                   <span className="text-white font-bold text-xl">3</span>
                 </div>
-                <h3 className="text-white font-bold text-xl mb-3">Keep Your Car</h3>
+                <h3 className="text-white font-bold text-xl mb-3">Win Your Car</h3>
                 <p className="text-white/70">
-                  If you win, we pay off your loan directly to the lender. Your car stays yours and your credit is protected.
+                  Get instant notifications when you win and coordinate with the seller for a smooth transfer process.
                 </p>
               </div>
             </div>
@@ -161,20 +161,20 @@ export default function LandingPage() {
 
           {/* Final CTA Section */}
           <div className="text-center bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm rounded-3xl p-12 border border-white/20">
-            <Shield className="h-16 w-16 text-green-400 mx-auto mb-6" />
+            <Heart className="h-16 w-16 text-red-400 mx-auto mb-6" />
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-              Don't Let Them Take Your Car
+              Ready to Win Your Next Car?
             </h2>
             <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-              Thousands of people have saved their vehicles and protected their credit through RaffAuction. 
-              Your financial relief could be just one entry away!
+              Join thousands of people who have found their perfect vehicle through RaffAuction. 
+              Your next car could be just one entry away!
             </p>
             <Link href="/auth">
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl px-16 py-8 text-2xl font-bold shadow-2xl"
               >
-                Save My Car Now
+                Start Winning Today
                 <ArrowRight className="ml-4 h-8 w-8" />
               </Button>
             </Link>
