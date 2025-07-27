@@ -25,7 +25,7 @@ export default function LandingPage() {
             src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80"
             alt="Luxury sports car front view"
             fill
-            className="object-cover object-center opacity-50"
+            className="object-cover object-left opacity-50"
             priority
           />
         </div>
@@ -98,28 +98,6 @@ export default function LandingPage() {
               <p className="text-white/70">
                 Low-cost entries make it accessible for everyone. Win a car without breaking the bank to participate.
               </p>
-            </div>
-          </div>
-
-          {/* Stats Section */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 mb-16">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">3K+</div>
-                <div className="text-white/70">Cars Won</div>
-              </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">$15M+</div>
-                <div className="text-white/70">Car Value Won</div>
-              </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">500+</div>
-                <div className="text-white/70">Active Listings</div>
-              </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">24/7</div>
-                <div className="text-white/70">Live Support</div>
-              </div>
             </div>
           </div>
 
