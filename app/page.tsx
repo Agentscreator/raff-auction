@@ -62,7 +62,7 @@ export default function LandingPage() {
             </h1>
             <p className="text-lg sm:text-xl text-white/80 mb-8 leading-relaxed">
               The revolutionary platform that merges the excitement of raffles with the competitive nature of auctions.
-              Your chance to win amazing prizes through strategy or luck.
+              Your chance to win luxury cars through strategy or luck.
             </p>
 
             <Link href="/auth">
@@ -80,23 +80,23 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 text-center">
               <Trophy className="h-12 w-12 text-yellow-400 mx-auto mb-4" />
-              <h3 className="text-white font-bold text-xl mb-3">Premium Prizes</h3>
+              <h3 className="text-white font-bold text-xl mb-3">Luxury Cars</h3>
               <p className="text-white/70">
-                Win luxury cars, electronics, vacations, and more from our curated collection of amazing prizes.
+                Win premium vehicles from top brands including Tesla, BMW, Mercedes, Porsche, and more exotic supercars.
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 text-center">
               <Shield className="h-12 w-12 text-green-400 mx-auto mb-4" />
-              <h3 className="text-white font-bold text-xl mb-3">Fair & Secure</h3>
+              <h3 className="text-white font-bold text-xl mb-3">Verified Authentic</h3>
               <p className="text-white/70">
-                Transparent algorithms and blockchain verification ensure every auction and raffle is completely fair.
+                Every car is thoroughly inspected, certified, and comes with full documentation and warranty coverage.
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 text-center">
               <Zap className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-              <h3 className="text-white font-bold text-xl mb-3">Instant Results</h3>
+              <h3 className="text-white font-bold text-xl mb-3">Instant Delivery</h3>
               <p className="text-white/70">
-                Real-time bidding, instant raffle draws, and immediate prize notifications keep the excitement alive.
+                Win your dream car and we'll handle all paperwork, registration, and deliver it directly to your door.
               </p>
             </div>
           </div>
@@ -105,16 +105,16 @@ export default function LandingPage() {
           <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 mb-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">50K+</div>
-                <div className="text-white/70">Happy Winners</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">2.5K+</div>
+                <div className="text-white/70">Cars Won</div>
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">$2M+</div>
-                <div className="text-white/70">Prizes Won</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">$50M+</div>
+                <div className="text-white/70">Car Value Won</div>
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">1000+</div>
-                <div className="text-white/70">Active Auctions</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white mb-2">200+</div>
+                <div className="text-white/70">Car Models</div>
               </div>
               <div>
                 <div className="text-3xl sm:text-4xl font-bold text-white mb-2">24/7</div>
@@ -133,9 +133,9 @@ export default function LandingPage() {
                 <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
                   <span className="text-white font-bold text-xl">1</span>
                 </div>
-                <h3 className="text-white font-bold text-xl mb-3">Choose Your Prize</h3>
+                <h3 className="text-white font-bold text-xl mb-3">Choose Your Car</h3>
                 <p className="text-white/70">
-                  Browse our extensive catalog of premium prizes from luxury cars to dream vacations.
+                  Browse our extensive catalog of luxury vehicles from supercars to electric vehicles and classic cars.
                 </p>
               </div>
               <div className="text-center">
@@ -144,16 +144,16 @@ export default function LandingPage() {
                 </div>
                 <h3 className="text-white font-bold text-xl mb-3">Bid or Enter</h3>
                 <p className="text-white/70">
-                  Use strategy in auctions or try your luck in raffles. Multiple ways to win amazing prizes.
+                  Use strategy in car auctions or try your luck in car raffles. Multiple ways to win your dream vehicle.
                 </p>
               </div>
               <div className="text-center">
                 <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
                   <span className="text-white font-bold text-xl">3</span>
                 </div>
-                <h3 className="text-white font-bold text-xl mb-3">Win & Celebrate</h3>
+                <h3 className="text-white font-bold text-xl mb-3">Drive Away</h3>
                 <p className="text-white/70">
-                  Get instant notifications when you win and enjoy fast, secure prize delivery.
+                  Get instant notifications when you win your car and enjoy fast, secure vehicle delivery to your location.
                 </p>
               </div>
             </div>
