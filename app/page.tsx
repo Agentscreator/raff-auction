@@ -11,7 +11,7 @@ export default function LandingPage() {
         {/* Desktop Background */}
         <div className="hidden md:block">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/car-saleswoman-car-showroom.jpg-bC4bKxPpiO4Y0kSMvWshe9d5CXKG8x.jpeg"
+            src="https://i.pinimg.com/1200x/fd/fc/41/fdfc41ac43fe81b099fa52a73e779fa8.jpg"
             alt="Professional car saleswoman in showroom"
             fill
             className="object-cover opacity-30"
@@ -22,10 +22,10 @@ export default function LandingPage() {
         {/* Mobile Background - Car focused */}
         <div className="block md:hidden">
           <Image
-            src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80"
+            src="https://www.wallpapersshare.com/img/big/girl-in-hurricane.jpg"
             alt="Modern car dashboard and interior"
             fill
-            className="object-cover object-right opacity-60"
+            className="object-cover object-center opacity-60"
             priority
           />
         </div>
