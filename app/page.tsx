@@ -22,7 +22,7 @@ export default function LandingPage() {
         {/* Mobile Background - Car focused */}
         <div className="block md:hidden">
           <Image
-            src="https://www.wallpapersshare.com/img/big/girl-in-hurricane.jpg"
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYHxqXmpAZm7aWb5MxNHUtHIbSqp8AK3iK8v2wnIzybF2_cGZ9oenvWdslWxZpkF6ZCC3YnzceYUNwC5cpH8h3K8TFt-RSRAzqAR39X6ks6qHGfyt0ElM8USQ6WVn6Fua5nPdEjrl2Fb6M/s1600/1658243679408851-0.png"
             alt="Modern car dashboard and interior"
             fill
             className="object-cover object-center opacity-60"
