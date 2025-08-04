@@ -81,7 +81,7 @@ export default function CarAuctionsPage() {
                 <span className="sm:hidden">Back</span>
               </Link>
               <div className="w-px h-6 bg-gray-300" />
-              <h1 className="text-lg sm:text-2xl font-bold text-gray-900">Live Car Auctions</h1>
+              <h1 className="text-lg sm:text-2xl font-bold text-gray-900">Car Raffles</h1>
             </div>
             <Link href="/create-auction">
               <Button className="rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-sm sm:text-base px-3 sm:px-4">
@@ -147,8 +147,8 @@ export default function CarAuctionsPage() {
                 </SelectTrigger>
                 <SelectContent className="rounded-2xl">
                   <SelectItem value="ending-soon">Ending Soon</SelectItem>
-                  <SelectItem value="highest-bid">Highest Bid</SelectItem>
-                  <SelectItem value="most-bids">Most Bids</SelectItem>
+                  <SelectItem value="highest-bid">Most Entries</SelectItem>
+                  <SelectItem value="most-bids">Most Popular</SelectItem>
                   <SelectItem value="newest">Newest Listings</SelectItem>
                   <SelectItem value="year-new">Newest Cars</SelectItem>
                   <SelectItem value="year-old">Oldest Cars</SelectItem>
@@ -226,19 +226,19 @@ export default function CarAuctionsPage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Current Bid</p>
+                      <p className="text-sm text-gray-600">Entry Price</p>
                       <p className="text-xl font-bold text-green-600">
                         ${parseFloat(auction.currentBid || 0).toLocaleString()}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-gray-600">Bids</p>
+                      <p className="text-sm text-gray-600">Entries</p>
                       <p className="text-lg font-semibold">{auction.bids || 0}</p>
                     </div>
                   </div>
 
                   <Button className="w-full rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600">
-                    Place Bid
+                    Enter Raffle
                   </Button>
                 </div>
               </CardContent>

@@ -250,7 +250,7 @@ export default function CarDashboard() {
                       </p>
                     </div>
                     <Button className="rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600">
-                      Place Bid
+                      Enter Raffle
                     </Button>
                   </div>
                 </CardContent>

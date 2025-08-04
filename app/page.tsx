@@ -61,8 +61,8 @@ export default function LandingPage() {
               </span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-white/80 mb-6 sm:mb-8 leading-relaxed">
-              The revolutionary platform that merges the excitement of raffles with the competitive nature of auctions.
-              Your chance to win quality vehicles through strategy or luck.
+              Unlike traditional auctions with competitive bidding, RaffAuction uses a unique raffle-based system.
+              Enter raffles for a chance to win quality vehicles - no bidding wars, just fair chances for everyone.
             </p>
 
             <Link href="/auth">
@@ -89,7 +89,7 @@ export default function LandingPage() {
               <Shield className="h-10 w-10 sm:h-12 sm:w-12 text-green-400 mx-auto mb-3 sm:mb-4" />
               <h3 className="text-white font-bold text-lg sm:text-xl mb-2 sm:mb-3">Fair & Transparent</h3>
               <p className="text-white/70 text-sm sm:text-base">
-                Every auction and raffle is completely transparent with verified results. Fair chance for everyone to win.
+                Every raffle is completely transparent with verified results. No bidding wars - just fair chances for everyone to win.
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/20 text-center sm:col-span-2 md:col-span-1">
@@ -120,9 +120,9 @@ export default function LandingPage() {
                 <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-4 sm:mb-6">
                   <span className="text-white font-bold text-lg sm:text-xl">2</span>
                 </div>
-                <h3 className="text-white font-bold text-lg sm:text-xl mb-2 sm:mb-3">Bid or Enter Raffle</h3>
+                <h3 className="text-white font-bold text-lg sm:text-xl mb-2 sm:mb-3">Enter Raffle</h3>
                 <p className="text-white/70 text-sm sm:text-base">
-                  Use strategy in auctions or try your luck in raffles. Affordable entries give everyone a fair chance.
+                  Instead of competitive bidding, purchase raffle entries for your chance to win. Fair, affordable, and transparent.
                 </p>
               </div>
               <div className="text-center">

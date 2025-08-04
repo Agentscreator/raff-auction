@@ -11,7 +11,10 @@
       "Bash(yarn db:push:*)",
       "Bash(tsx:*)",
       "Bash(yarn tsx:*)",
-      "Bash(yarn db:reset-email:*)"
+      "Bash(yarn db:reset-email:*)",
+      "Bash(git checkout:*)",
+      "Bash(rm:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }
