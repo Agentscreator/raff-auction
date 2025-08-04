@@ -15,6 +15,12 @@ export default function CarDashboard() {
   const { data: session, status } = useSession()
   const [activeAuctions, setActiveAuctions] = useState<any[]>([])
   const [activeRaffles, setActiveRaffles] = useState<any[]>([])
+  const [userStats, setUserStats] = useState({
+    activeBids: 0,
+    raffleEntries: 0,
+    carsWon: 0,
+    totalInvested: '0.00'
+  })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -32,9 +38,10 @@ export default function CarDashboard() {
 
   const fetchData = async () => {
     try {
-      const [auctionsRes, rafflesRes] = await Promise.all([
+      const [auctionsRes, rafflesRes, statsRes] = await Promise.all([
         fetch('/api/auctions'),
-        fetch('/api/raffles')
+        fetch('/api/raffles'),
+        fetch('/api/user/stats')
       ])
       
       if (auctionsRes.ok) {
@@ -45,6 +52,11 @@ export default function CarDashboard() {
       if (rafflesRes.ok) {
         const rafflesData = await rafflesRes.json()
         setActiveRaffles(rafflesData.slice(0, 2)) // Show only first 2
+      }
+      
+      if (statsRes.ok) {
+        const statsData = await statsRes.json()
+        setUserStats(statsData)
       }
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -106,7 +118,7 @@ export default function CarDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-red-100">Active Bids</p>
-                  <p className="text-3xl font-bold">7</p>
+                  <p className="text-3xl font-bold">{userStats.activeBids}</p>
                 </div>
                 <Car className="h-8 w-8 text-red-200" />
               </div>
@@ -118,7 +130,7 @@ export default function CarDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-blue-100">Raffle Entries</p>
-                  <p className="text-3xl font-bold">12</p>
+                  <p className="text-3xl font-bold">{userStats.raffleEntries}</p>
                 </div>
                 <Ticket className="h-8 w-8 text-blue-200" />
               </div>
@@ -130,7 +142,7 @@ export default function CarDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-green-100">Cars Won</p>
-                  <p className="text-3xl font-bold">2</p>
+                  <p className="text-3xl font-bold">{userStats.carsWon}</p>
                 </div>
                 <Award className="h-8 w-8 text-green-200" />
               </div>
@@ -142,7 +154,11 @@ export default function CarDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-orange-100">Total Invested</p>
-                  <p className="text-3xl font-bold">$45K</p>
+                  <p className="text-3xl font-bold">
+                    ${parseFloat(userStats.totalInvested) > 1000 
+                      ? `${(parseFloat(userStats.totalInvested) / 1000).toFixed(1)}K` 
+                      : parseFloat(userStats.totalInvested).toLocaleString()}
+                  </p>
                 </div>
                 <TrendingUp className="h-8 w-8 text-orange-200" />
               </div>

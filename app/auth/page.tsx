@@ -207,18 +207,18 @@ export default function AuthPage() {
               </Button>
 
               <div className="text-center">
+                <p className="text-white/60 text-sm mb-2">
+                  {isLogin ? "Don't have an account?" : "Already have an account?"}
+                </p>
                 <button
                   type="button"
                   onClick={() => {
                     setIsLogin(!isLogin)
                     setError("")
                   }}
-                  className="text-white/70 hover:text-white text-sm transition-colors"
+                  className="text-purple-300 hover:text-purple-100 font-semibold text-base underline underline-offset-4 decoration-2 hover:decoration-purple-200 transition-all duration-200"
                 >
-                  {isLogin 
-                    ? "Don't have an account? Sign up" 
-                    : "Already have an account? Sign in"
-                  }
+                  {isLogin ? "Sign up here" : "Sign in here"}
                 </button>
               </div>
             </form>
