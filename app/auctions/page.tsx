@@ -7,128 +7,66 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowLeft, Search, Filter, MapPin, Clock, Car, Fuel, Gauge } from "lucide-react"
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 
 export default function CarAuctionsPage() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("")
   const [makeFilter, setMakeFilter] = useState("all")
   const [typeFilter, setTypeFilter] = useState("all")
   const [sortBy, setSortBy] = useState("ending-soon")
+  const [auctions, setAuctions] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const carAuctions = [
-    {
-      id: 1,
-      title: "2023 Porsche 911 Turbo S",
-      make: "Porsche",
-      model: "911 Turbo S",
-      year: 2023,
-      mileage: 2400,
-      engine: "3.8L Twin-Turbo H6",
-      transmission: "8-Speed PDK",
-      currentBid: 185000,
-      timeLeft: "2h 15m",
-      location: "Beverly Hills, CA",
-      type: "sports",
-      bids: 28,
-      condition: "Excellent",
-      image: "/placeholder.svg?height=300&width=400",
-    },
-    {
-      id: 2,
-      title: "1967 Shelby GT500 Eleanor",
-      make: "Shelby",
-      model: "GT500 Eleanor",
-      year: 1967,
-      mileage: "Restored",
-      engine: "7.0L V8",
-      transmission: "4-Speed Manual",
-      currentBid: 285000,
-      timeLeft: "1d 8h",
-      location: "Detroit, MI",
-      type: "classic",
-      bids: 35,
-      condition: "Restored",
-      image: "/placeholder.svg?height=300&width=400",
-    },
-    {
-      id: 3,
-      title: "2024 Tesla Model S Plaid",
-      make: "Tesla",
-      model: "Model S Plaid",
-      year: 2024,
-      mileage: 850,
-      engine: "Electric Tri-Motor",
-      transmission: "Single-Speed",
-      currentBid: 95000,
-      timeLeft: "3d 12h",
-      location: "Palo Alto, CA",
-      type: "electric",
-      bids: 22,
-      condition: "Like New",
-      image: "/placeholder.svg?height=300&width=400",
-    },
-    {
-      id: 4,
-      title: "2022 BMW M4 Competition",
-      make: "BMW",
-      model: "M4 Competition",
-      year: 2022,
-      mileage: 8500,
-      engine: "3.0L Twin-Turbo I6",
-      transmission: "8-Speed Automatic",
-      currentBid: 68000,
-      timeLeft: "5h 30m",
-      location: "Austin, TX",
-      type: "luxury",
-      bids: 19,
-      condition: "Excellent",
-      image: "/placeholder.svg?height=300&width=400",
-    },
-    {
-      id: 5,
-      title: "2021 Ford F-150 Raptor",
-      make: "Ford",
-      model: "F-150 Raptor",
-      year: 2021,
-      mileage: 15200,
-      engine: "3.5L Twin-Turbo V6",
-      transmission: "10-Speed Automatic",
-      currentBid: 52000,
-      timeLeft: "2d 6h",
-      location: "Phoenix, AZ",
-      type: "truck",
-      bids: 31,
-      condition: "Very Good",
-      image: "/placeholder.svg?height=300&width=400",
-    },
-    {
-      id: 6,
-      title: "1969 Chevrolet Camaro SS",
-      make: "Chevrolet",
-      model: "Camaro SS",
-      year: 1969,
-      mileage: "Numbers Matching",
-      engine: "396 Big Block V8",
-      transmission: "4-Speed Manual",
-      currentBid: 125000,
-      timeLeft: "4d 2h",
-      location: "Nashville, TN",
-      type: "classic",
-      bids: 24,
-      condition: "Restored",
-      image: "/placeholder.svg?height=300&width=400",
-    },
-  ]
+  useEffect(() => {
+    if (status === "loading") return
+    
+    if (status === "unauthenticated") {
+      router.push("/auth")
+      return
+    }
 
-  const filteredAuctions = carAuctions.filter((auction) => {
-    const matchesSearch = auction.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         auction.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         auction.model.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesMake = makeFilter === "all" || auction.make.toLowerCase() === makeFilter
-    const matchesType = typeFilter === "all" || auction.type === typeFilter
-    return matchesSearch && matchesMake && matchesType
-  })
+    if (status === "authenticated") {
+      fetchAuctions()
+    }
+  }, [status, router])
+
+  const fetchAuctions = async () => {
+    try {
+      const params = new URLSearchParams()
+      if (makeFilter !== 'all') params.append('make', makeFilter)
+      if (searchTerm) params.append('search', searchTerm)
+      
+      const response = await fetch(`/api/auctions?${params}`)
+      if (response.ok) {
+        const data = await response.json()
+        setAuctions(data)
+      }
+    } catch (error) {
+      console.error('Error fetching auctions:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchAuctions()
+    }
+  }, [makeFilter, searchTerm])
+
+  if (status === "loading" || loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center">
+        <div className="text-gray-600">Loading auctions...</div>
+      </div>
+    )
+  }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
@@ -223,13 +161,13 @@ export default function CarAuctionsPage() {
         {/* Results Count */}
         <div className="mb-4 sm:mb-6">
           <p className="text-sm sm:text-base text-gray-600">
-            Showing {filteredAuctions.length} of {carAuctions.length} vehicles
+            Showing {auctions.length} vehicles
           </p>
         </div>
 
         {/* Car Auctions Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {filteredAuctions.map((auction) => (
+          {auctions.map((auction) => (
             <Card
               key={auction.id}
               className="rounded-3xl border-0 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
@@ -277,11 +215,11 @@ export default function CarAuctionsPage() {
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-xs text-gray-600">
                     <Fuel className="h-3 w-3 mr-1" />
-                    <span>{auction.engine}</span>
+                    <span>{auction.engine || 'Engine info not available'}</span>
                   </div>
                   <div className="flex items-center text-xs text-gray-600">
                     <Gauge className="h-3 w-3 mr-1" />
-                    <span>{auction.transmission}</span>
+                    <span>{auction.transmission || 'Transmission info not available'}</span>
                   </div>
                 </div>
 
@@ -289,11 +227,13 @@ export default function CarAuctionsPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-gray-600">Current Bid</p>
-                      <p className="text-xl font-bold text-green-600">${auction.currentBid.toLocaleString()}</p>
+                      <p className="text-xl font-bold text-green-600">
+                        ${parseFloat(auction.currentBid || 0).toLocaleString()}
+                      </p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-gray-600">Bids</p>
-                      <p className="text-lg font-semibold">{auction.bids}</p>
+                      <p className="text-lg font-semibold">{auction.bids || 0}</p>
                     </div>
                   </div>
 
@@ -306,7 +246,7 @@ export default function CarAuctionsPage() {
           ))}
         </div>
 
-        {filteredAuctions.length === 0 && (
+        {auctions.length === 0 && !loading && (
           <div className="text-center py-12">
             <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Car className="h-12 w-12 text-gray-400" />

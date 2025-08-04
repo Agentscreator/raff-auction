@@ -7,34 +7,57 @@ import { Car, Ticket, MapPin, Clock, Users, TrendingUp, LogOut, Zap, Award, Fuel
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useSession, signOut } from "next-auth/react"
 import Image from "next/image"
 
 export default function CarDashboard() {
   const router = useRouter()
-  const [user, setUser] = useState<any>(null)
+  const { data: session, status } = useSession()
+  const [activeAuctions, setActiveAuctions] = useState<any[]>([])
+  const [activeRaffles, setActiveRaffles] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check authentication
-    const auth = localStorage.getItem("raffauction_auth")
-    const userData = localStorage.getItem("raffauction_user")
-
-    if (!auth || auth !== "true") {
+    if (status === "loading") return
+    
+    if (status === "unauthenticated") {
       router.push("/auth")
       return
     }
 
-    if (userData) {
-      setUser(JSON.parse(userData))
+    if (status === "authenticated") {
+      fetchData()
     }
-  }, [router])
+  }, [status, router])
 
-  const handleLogout = () => {
-    localStorage.removeItem("raffauction_auth")
-    localStorage.removeItem("raffauction_user")
-    router.push("/")
+  const fetchData = async () => {
+    try {
+      const [auctionsRes, rafflesRes] = await Promise.all([
+        fetch('/api/auctions'),
+        fetch('/api/raffles')
+      ])
+      
+      if (auctionsRes.ok) {
+        const auctionsData = await auctionsRes.json()
+        setActiveAuctions(auctionsData.slice(0, 2)) // Show only first 2
+      }
+      
+      if (rafflesRes.ok) {
+        const rafflesData = await rafflesRes.json()
+        setActiveRaffles(rafflesData.slice(0, 2)) // Show only first 2
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  if (!user) {
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/" })
+  }
+
+  if (status === "loading" || loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black flex items-center justify-center">
         <div className="text-white">Loading...</div>
@@ -42,63 +65,6 @@ export default function CarDashboard() {
     )
   }
 
-  const activeAuctions = [
-    {
-      id: 1,
-      title: "2023 Porsche 911 Turbo S",
-      make: "Porsche",
-      model: "911 Turbo S",
-      year: 2023,
-      mileage: "2,400 miles",
-      currentBid: 185000,
-      timeLeft: "2h 15m",
-      location: "Beverly Hills, CA",
-      image: "/placeholder.svg?height=200&width=300",
-      condition: "Excellent"
-    },
-    {
-      id: 2,
-      title: "1967 Shelby GT500 Eleanor",
-      make: "Shelby",
-      model: "GT500 Eleanor",
-      year: 1967,
-      mileage: "Restored",
-      currentBid: 285000,
-      timeLeft: "1d 8h",
-      location: "Detroit, MI",
-      image: "/placeholder.svg?height=200&width=300",
-      condition: "Restored"
-    },
-  ]
-
-  const activeRaffles = [
-    {
-      id: 1,
-      title: "2024 Tesla Model S Plaid",
-      make: "Tesla",
-      model: "Model S Plaid",
-      year: 2024,
-      ticketPrice: 50,
-      totalTickets: 2000,
-      soldTickets: 1650,
-      drawDate: "Dec 25, 2024",
-      image: "/placeholder.svg?height=200&width=300",
-      estimatedValue: 120000
-    },
-    {
-      id: 2,
-      title: "2023 BMW M4 Competition",
-      make: "BMW",
-      model: "M4 Competition",
-      year: 2023,
-      ticketPrice: 25,
-      totalTickets: 1500,
-      soldTickets: 980,
-      drawDate: "Dec 20, 2024",
-      image: "/placeholder.svg?height=200&width=300",
-      estimatedValue: 78000
-    },
-  ]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
@@ -116,7 +82,7 @@ export default function CarDashboard() {
               />
               <div>
                 <h1 className="text-xl sm:text-2xl font-bold text-gray-900">RaffAuction</h1>
-                <p className="text-xs sm:text-sm text-gray-600">Welcome back, {user.username}</p>
+                <p className="text-xs sm:text-sm text-gray-600">Welcome back, {session?.user?.name || session?.user?.email}</p>
               </div>
             </div>
             <Button
@@ -249,17 +215,23 @@ export default function CarDashboard() {
                     <Badge variant="outline" className="rounded-full text-xs">
                       {auction.year}
                     </Badge>
-                    <span className="text-sm text-gray-600">{auction.mileage}</span>
+                    <span className="text-sm text-gray-600">
+                      {typeof auction.mileage === 'number' 
+                        ? `${auction.mileage.toLocaleString()} mi` 
+                        : auction.mileage || 'N/A'}
+                    </span>
                   </div>
                   <h3 className="font-bold text-lg mb-1">{auction.make} {auction.model}</h3>
                   <div className="flex items-center text-gray-600 mb-3">
                     <MapPin className="h-4 w-4 mr-1" />
-                    <span className="text-sm">{auction.location}</span>
+                    <span className="text-sm">{auction.location || 'Location not specified'}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-gray-600">Current Bid</p>
-                      <p className="text-xl font-bold text-green-600">${auction.currentBid.toLocaleString()}</p>
+                      <p className="text-xl font-bold text-green-600">
+                        ${parseFloat(auction.currentBid || 0).toLocaleString()}
+                      </p>
                     </div>
                     <Button className="rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600">
                       Place Bid
@@ -305,11 +277,13 @@ export default function CarDashboard() {
                 </div>
                 <CardContent className="p-6">
                   <h3 className="font-bold text-lg mb-1">{raffle.make} {raffle.model}</h3>
-                  <p className="text-sm text-gray-600 mb-3">Est. Value: ${raffle.estimatedValue.toLocaleString()}</p>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Est. Value: ${parseFloat(raffle.estimatedValue || 0).toLocaleString()}
+                  </p>
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Ticket Price</span>
-                      <span className="font-semibold">${raffle.ticketPrice}</span>
+                      <span className="font-semibold">${parseFloat(raffle.ticketPrice || 0)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Draw Date</span>
@@ -318,12 +292,12 @@ export default function CarDashboard() {
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
                         className="bg-gradient-to-r from-blue-500 to-indigo-500 h-2 rounded-full"
-                        style={{ width: `${(raffle.soldTickets / raffle.totalTickets) * 100}%` }}
+                        style={{ width: `${((raffle.soldTickets || 0) / (raffle.totalTickets || 1)) * 100}%` }}
                       ></div>
                     </div>
                     <div className="flex justify-between text-xs text-gray-600">
-                      <span>{raffle.soldTickets} tickets sold</span>
-                      <span>{raffle.totalTickets} total</span>
+                      <span>{raffle.soldTickets || 0} tickets sold</span>
+                      <span>{raffle.totalTickets || 0} total</span>
                     </div>
                   </div>
                   <Button className="w-full rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600">

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yarn add:*)",
+      "Bash(timeout 60 yarn add drizzle-orm @neondatabase/serverless drizzle-kit bcryptjs next-auth)",
+      "Bash(yarn db:generate:*)",
+      "Bash(yarn db:migrate:*)",
+      "Bash(yarn db:seed:*)",
+      "Bash(yarn drizzle-kit:*)",
+      "Bash(yarn run:*)",
+      "Bash(yarn db:push:*)",
+      "Bash(tsx:*)",
+      "Bash(yarn tsx:*)",
+      "Bash(yarn db:reset-email:*)"
+    ],
+    "deny": []
+  }
+}

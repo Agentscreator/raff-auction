@@ -6,29 +6,86 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, LogIn } from "lucide-react"
+import { ArrowLeft, LogIn, UserPlus } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 import Image from "next/image"
 
 export default function AuthPage() {
-  const [username, setUsername] = useState("")
+  const [isLogin, setIsLogin] = useState(true)
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [name, setName] = useState("")
   const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
+    setError("")
 
-    // Fake authentication - check for demo credentials
-    if (username === "1234" && password === "1234") {
-      // Store auth state (in real app, this would be proper auth)
-      localStorage.setItem("raffauction_auth", "true")
-      localStorage.setItem("raffauction_user", JSON.stringify({ username: "1234", id: "demo-user" }))
-      router.push("/dashboard")
-    } else {
-      setError("Invalid credentials. Use username: 1234, password: 1234")
+    try {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setError('Invalid credentials')
+      } else {
+        router.push('/dashboard')
+      }
+    } catch (error) {
+      setError('An error occurred during login')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError("")
+
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          name,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        // Registration successful, now sign in
+        const result = await signIn('credentials', {
+          email,
+          password,
+          redirect: false,
+        })
+
+        if (result?.error) {
+          setError('Registration successful, but login failed')
+        } else {
+          router.push('/dashboard')
+        }
+      } else {
+        setError(data.error || 'Registration failed')
+      }
+    } catch (error) {
+      setError('An error occurred during registration')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -53,24 +110,44 @@ export default function AuthPage() {
               height={80}
               className="mx-auto mb-4"
             />
-            <CardTitle className="text-xl sm:text-2xl font-bold text-white">Welcome Back</CardTitle>
+            <CardTitle className="text-xl sm:text-2xl font-bold text-white">
+              {isLogin ? 'Welcome Back' : 'Create Account'}
+            </CardTitle>
             <CardDescription className="text-white/70 text-sm sm:text-base">
-              Sign in to access your RaffAuction dashboard
+              {isLogin 
+                ? 'Sign in to access your RaffAuction dashboard' 
+                : 'Join RaffAuction to start bidding on cars'
+              }
             </CardDescription>
           </CardHeader>
           <CardContent className="px-4 sm:px-6">
-            <form onSubmit={handleLogin} className="space-y-6">
+            <form onSubmit={isLogin ? handleLogin : handleSignup} className="space-y-6">
+              {!isLogin && (
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-white font-medium">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 rounded-2xl h-12 focus:border-purple-400 focus:ring-purple-400"
+                    placeholder="Enter your name"
+                  />
+                </div>
+              )}
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-white font-medium">
-                  Username
+                <Label htmlFor="email" className="text-white font-medium">
+                  Email
                 </Label>
                 <Input
-                  id="username"
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50 rounded-2xl h-12 focus:border-purple-400 focus:ring-purple-400"
-                  placeholder="Enter your username"
+                  placeholder="Enter your email"
                   required
                 />
               </div>
@@ -95,23 +172,41 @@ export default function AuthPage() {
                 </div>
               )}
 
-              <div className="bg-blue-500/20 border border-blue-500/30 rounded-2xl p-3">
-                <p className="text-blue-200 text-sm">
-                  <strong>Demo Credentials:</strong>
-                  <br />
-                  Username: 1234
-                  <br />
-                  Password: 1234
-                </p>
-              </div>
-
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl h-12 font-semibold"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl h-12 font-semibold disabled:opacity-50"
               >
-                <LogIn className="mr-2 h-4 w-4" />
-                Sign In
+                {loading ? (
+                  'Loading...'
+                ) : isLogin ? (
+                  <>
+                    <LogIn className="mr-2 h-4 w-4" />
+                    Sign In
+                  </>
+                ) : (
+                  <>
+                    <UserPlus className="mr-2 h-4 w-4" />
+                    Create Account
+                  </>
+                )}
               </Button>
+
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsLogin(!isLogin)
+                    setError("")
+                  }}
+                  className="text-white/70 hover:text-white text-sm transition-colors"
+                >
+                  {isLogin 
+                    ? "Don't have an account? Sign up" 
+                    : "Already have an account? Sign in"
+                  }
+                </button>
+              </div>
             </form>
           </CardContent>
         </Card>
